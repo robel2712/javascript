@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table{
+            display: block;
+            margin:2rem 35rem;
+            border-collapse: collapse;
+            
+        }
+        th,td{
+            border: 1px solid black;
+        }
+        dialog{
+          background: linear-gradient(yellow ,green
+          );
+        }
+        input[type="submit"]:hover{
+           background: linear-gradient(yellow,red); 
+           border-radius: 5px solid black;
+          }
+    </style>
+</head>
+<body>
+    <dialog id="dialog" >
+    <form>
+       <!-- <label for="bookid">Book-id:</label><br>
+       <input type="text" name="" id="bookid" aria-required="true"><br> -->
+       <label for="bookid">Book-Name:</label><br>
+       <input type="text" name="" id="bookname" aria-required="true"><br>
+       <label for="bookid">Book-Year:</label><br>
+       <input type="text" name="" id="bookyear" aria-required="true"><br><br>
+       <input type="submit">
+    </form>
+</dialog>
+
+<button onclick="addBookToLibrary()">Display</button>
+<button onclick="displayDialog()">add</button>
+<div id="display">
+</div>
+
+    <script>
+   const myLibrary = [];
+ document.querySelector('form').addEventListener("submit",function(e){
+  e.preventDefault();
+  // const id = document.getElementById('bookid').value
+  const id = crypto.randomUUID()
+  const name = document.getElementById('bookname').value
+  const year = document.getElementById('bookyear').value
+
+   const duplicate = myLibrary.find(book=>book.name === name)
+   // checks if duplicate id and name 
+   if(duplicate){
+    alert('enter unique book name')
+  }
+  else if(!id,name,year){
+    alert("Successfully new book add!")
+    myLibrary.push((new Book(id,name,year)))
+    addBookToLibrary()
+  }
+ })
+  
+
+
+function Book(id,name,year) {
+  this.id = id;
+  this.name = name;
+  this.year = year;
+
+}
+   
+  function displayDialog(){
+document.getElementById('dialog').showModal()
+    
+    
+  }
+function addBookToLibrary() {
+ let table = `<table>
+        <caption>List Of Books</caption>
+        <tr>
+        <th>Book id</th>
+        <th>Book Name</th>
+        <th>Book Year</th>
+        </tr>`
+ myLibrary.forEach(book=>{
+    table+=`
+        <tr>
+         <td>${book.id}</td>
+         <td>${book.name}</td>
+         <td>${book.year}</td>
+        </tr>
+        
+    `
+})
+ table+=`</table>`;
+ document.getElementById('display').innerHTML=table;
+}
+
+    </script>
+</body>
+</html>

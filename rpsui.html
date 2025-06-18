@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>welcome to rps game</h1>
+    <button id="rockbtn">rock</button>
+    <button id="paperbtn">paper</button>
+    <button id="scissorsbtn">scissors</button>
+    
+    <p id="root"></p>
+    <p id="root1"></p>
+    <p id="root2"></p>
+    <p id="root3"></p>
+    <p id='history'></p>
+<script>
+
+function getComputerChoice(){
+    let a = ["paper","rock","scissors"]
+    let arrayIndex=Math.floor(Math.random() * a.length )
+    let computerChoice=a[arrayIndex]
+    return computerChoice;
+}
+// getComputerChoice()
+
+
+function getHumanChoice(){
+    let humanChoice;
+const rock= document.getElementById("rockbtn")
+const paper= document.getElementById("paperbtn")
+const scissors= document.getElementById("scissorsbtn")
+rock.addEventListener("click",function(){
+    const humanChoice='rock'
+    const computerChoice = getComputerChoice()
+    document.getElementById('root').innerHTML="human chose:"+ humanChoice
+    document.getElementById('root1').innerHTML="computer chose:"+computerChoice
+  
+   playRound(humanChoice,computerChoice)
+})
+
+
+
+paper.addEventListener("click",function(){
+    const humanChoice = 'paper';
+    const computerChoice = getComputerChoice()
+   document.getElementById('root').innerHTML="human chose: "+humanChoice
+   document.getElementById('root1').innerHTML="computer chose:"+computerChoice
+   playRound(humanChoice,computerChoice)
+
+})
+
+
+scissors.addEventListener("click",function(){
+    const humanChoice='scissors'
+    const computerChoice = getComputerChoice()
+   document.getElementById('root').innerHTML="human chose:"+humanChoice
+   document.getElementById('root1').innerHTML="computer chose:"+computerChoice
+   playRound(humanChoice,computerChoice)
+})
+ humanChoice = scissors,paper,rock;
+ return humanChoice;
+}
+let computerScore=0;
+let humanScore=0;
+
+function playGame(humanChoice,computerChoice){
+    const computerSelection = getComputerChoice()
+    const humanSelection = getHumanChoice()
+   
+   
+    
+    
+}
+
+playGame();
+
+
+
+function playRound(humanChoice,computerChoice){
+    const paste = document.getElementById('root2')
+    if(getComputerChoice||getHumanChoice){
+      if((humanChoice==="paper" && computerChoice==="scissors")
+            ||(humanChoice==="rock" && computerChoice==="paper")
+            ||(humanChoice==="scissors" && computerChoice==="rock")){
+              paste.innerHTML=`You lose! ${humanChoice}- ${computerChoice}`
+              computerScore++;
+            }
+      else if(humanChoice==computerChoice){
+        paste.innerHTML="It's draw."
+       }
+      else{
+        paste.innerHTML=`You win! ${humanChoice}- ${computerChoice}`
+        humanScore++;
+        
+    }
+}
+ else{
+    paste.display=none;
+  }
+    const maxScore=5;
+    const score= document.getElementById('root3')
+
+    if(computerScore+humanScore === maxScore){
+        score.innerHTML=`final score humanscore ${humanScore}- computer ${computerScore}`
+    }
+    else{
+      return true;
+    }
+}
+
+
+
+</script>
+</body>
+</html>

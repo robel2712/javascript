@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="root"></p>
+    <script>
+function getComputerChoice() {
+    const array = ["rock","paper","scissors"];
+    let arrayIndex = Math.floor(Math.random() * array.length)
+    let computerChoice = array[arrayIndex]
+    console.log("computer choice:"+ computerChoice)
+    return computerChoice;
+}   
+// getComputerChoice()
+
+function getHumanChoice() {
+    let humanChoice = String(prompt("enter the keyword 'rock',''paper' or 'scissors'"))
+    
+
+    if(humanChoice.toLowerCase() === "rock" ||humanChoice.toLowerCase()==="paper" ||humanChoice.toLowerCase()==="scissors"){
+        console.log("human choice:"+ humanChoice)
+        return humanChoice;
+    }
+    else{
+       
+        alert("enter a vaild input")//alert incorrect input
+        return getHumanChoice();//ask again 
+    }
+}
+
+// getHumanChoice()
+
+ var humanScore=0;
+ var computerScore=0;
+
+ function playRound(humanChoice,computerChoice) {
+
+    if((humanChoice==="paper" && computerChoice==="scissors")
+            ||(humanChoice==="rock" && computerChoice==="paper")
+            ||(humanChoice==="scissors" && computerChoice==="rock")){
+        console.log(`You lose!computer beats human.`)
+        computerScore++;
+    }
+    else if(computerChoice===humanChoice){
+        console.log("draw") 
+               
+    }
+    else{
+        console.log(`You win! human beats computer.`)
+        humanScore++;
+    }
+ }
+ 
+
+ function playGame() {
+    
+    for(let i=1;i<5;i++){
+        const humanSelection = getHumanChoice();
+        const computerSelection = getComputerChoice();
+        playRound(humanSelection, computerSelection);
+    }
+
+    if(humanScore > computerScore){
+    console.log(`finally human beats computer with ${humanScore}- ${computerScore}`)}
+ 
+ else{
+    console.log(`finally human beats computer with ${computerScore}- ${humanScore}`)
+ }
+ }
+ playGame()
+    </script>
+    
+    
+</body>
+</html>
