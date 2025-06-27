@@ -1,0 +1,25 @@
+div{
+   display: block;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.25);
+    border: 2px solid white;
+    border-radius: 15px; ;
+    margin: 2rem 4rem;
+    width: 400px;  
+}
+/* div:hover{
+    display: block;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    box-shadow: 12px 0px 12px black;
+    border: 2px solid white;
+    border-radius: 15px; ;
+    margin: 2rem 4rem;
+    width: 400px;
+} */
+form{
+  padding: 2rem 3rem;
+}

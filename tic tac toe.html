@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    table{
+        margin-top: 4rem ;
+        margin-left: 30rem;
+        width: 15%;
+        border-collapse: collapse;
+        align-items: center;
+    }
+    td,tr{
+        padding: 50px;
+        border: 1px solid black;
+    }
+    form{
+        display: flex;
+    }
+    
+    .player2{
+      margin-left:33rem ;
+      float: right;
+    
+    }
+    .sbtn{
+        display: flex;
+        margin-left: 22rem;
+        margin-top:3rem;
+        height:40px;
+        width: 40px;
+        
+        
+    }
+</style>
+<body>
+    <form >
+        <div class="player1">
+    <label for="play1">player 1</label>
+    <input type="text" id="name1"><br><br>
+    <label for="play1">marker</label>
+    <select name="marker" id="marker1">
+        <option value="x">X</option>
+        <option value="o">O</option>
+    </select>
+    </div>
+    <div class="sbtn">
+    <input type="submit">
+    </div>
+    <div class="player2">
+    <label for="play2">player 2</label>
+    <input type="text" id="name2"><br><br>
+    <label for="play1">marker</label>
+    <select name="marker" id="marker2">
+        <option value="x">X</option>
+        <option value="o">O</option>
+    </select><br>
+    </div>
+    
+ </form>
+    <table>
+        
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+    
+    <p id="message"></p>
+    <p id="result"></p>
+    <button>restart</button>
+    <script>
+        let currentPlayer = "";
+        let currentMarker ="";
+        let player1score= 0,player2score=0;
+        let marker1=""
+        let marker2=""
+
+        const td= document.querySelectorAll('td')
+        const message = document.getElementById('message')
+        const result = document.getElementById('result')
+        const form = document.querySelector("form")
+     document.querySelector("form").addEventListener("submit",function(e){
+        e.preventDefault()
+        playerName1 = document.getElementById("name1").value
+        playerName2 = document.getElementById("name2").value
+        marker1 = document.getElementById('marker1').value
+        marker2 = document.getElementById('marker2').value
+        
+        
+
+        if(!playerName1||!playerName2){
+         alert("enter a name")
+        }
+        
+       
+        if(marker2===marker1){
+            form.style.display='flex'
+            alert("please select diffrent marker!")
+        }
+
+        else{
+        form.style.display='none';
+        currentPlayer = playerName1;
+        currentMarker = marker1;
+        
+        gameOver=false
+        draw()
+        }
+        
+                
+        
+    })
+  function draw() {
+        td.forEach(cell => {
+            cell.addEventListener("click", function () {
+                if (gameOver||cell.innerHTML.trim() !== "") return; // prevent overwrite
+
+                cell.innerHTML = currentMarker;
+
+                // Switch players
+                if (currentMarker === marker1) {
+                    currentMarker = marker2;
+                    currentPlayer = playerName2;
+                } else {
+                    currentMarker = marker1;
+                    currentPlayer = playerName1;
+                }
+               
+                
+                
+                if(checkWin()){
+                    if(currentPlayer===playerName1){
+                    player1score++;
+                }else{
+                    player2score++
+                }   
+                   if(player1score===5||player2score===5){
+                    message.innerHTML=`finally ${currentPlayer} win ${player1score}-${player2score}`
+                }
+                    else{setTimeout(()=>{
+                     resetBoard()
+                     message.innerHTML=`new game ${currentPlayer}`
+                     gameOver=false
+                    },1500)
+                }
+                    result.textContent=`player ${playerName1} \n score: ${player1score}|player ${playerName2} \n score: ${player2score}!`
+                    gameOver = true;
+                    return;
+                
+                }
+               
+                if(isDraw()){
+                  
+                  result.textContent="it is draw"
+                  gameOver=true
+                  setTimeout(()=>{
+                     resetBoard()
+                     message.innerHTML=`new game ${currentPlayer}`
+                     gameOver=false
+                    },1500)
+                  return;
+                }
+            
+
+                
+                message.textContent = `Current Turn: ${currentPlayer}`;
+            });
+        });
+    }
+    document.querySelector('button').addEventListener("click",function(){
+        td.forEach(cell=>{
+        cell.innerHTML=" ";
+        })
+        form.style.display="flex"
+        form.reset()
+        message.innerHTML=" ";
+        result.innerHTML=" ";
+        resetBoard();
+    })
+
+ function checkWin(){
+    const patterns=[[0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+        [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+        [0, 4, 8], [2, 4, 6] //diagonal]
+ ]
+   return patterns.some((pattern)=>{
+    const[a,b,c]=pattern;
+        return(
+            td[a].innerHTML.trim()===currentMarker&&
+            td[b].innerHTML.trim()===currentMarker&&
+            td[c].innerHTML.trim()===currentMarker
+
+        )
+    })
+
+     
+    
+ }
+    function isDraw() {
+    return [...td].every(cell => cell.innerHTML.trim() !== "");
+}
+   function resetBoard(){
+    td.forEach((cell)=> {cell.innerHTML=""})
+   }
+    </script>
+</body>
+</html>
