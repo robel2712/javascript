@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather app</title>
+    <script src="./weather.js" defer></script>
+</head>
+<style>
+    #display{
+        background: url(src);
+        border: 2px solid white;
+        box-shadow:  0 0 8px rgba(0,0,0,0.7);
+        height: 300px;
+        width: 500px;
+        margin: 2rem 18rem;
+        color: white;
+    }
+
+</style>
+<body>
+    <div>
+        <form id="form">
+            <input type="text" placeholder="enter a city name" id="city">
+            <input type="submit">
+        </form>
+    </div>
+    <img src="" alt="" style="display: none;">
+    <div id="display">
+        
+    </div>
+</body>
+</html>
